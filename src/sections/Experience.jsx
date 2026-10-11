@@ -16,7 +16,30 @@ import TimelineItem from '../components/TimelineItem.jsx'
  *   tags: ['PyTorch', 'OpenCV'],        // 선택
  * }
  */
-export const EXPERIENCE = []
+export const EXPERIENCE = [
+  {
+    period: '2026.03 – Present',
+    role: 'ML/DL Engineer',
+    org: 'CSI Vision',
+    location: 'Suwon, South Korea',
+    bullets: [
+      'Improved a Raman spectrum-based substance identification algorithm by redesigning its spectral preprocessing',
+      'Built a web platform for XRF-based foreign material analysis (image segmentation with SAM, OCR)',
+      'Leading the development of a web application for remote ESS monitoring and operation profile analysis, including KPI design',
+    ],
+    tags: ['Python', 'Scikit-learn', 'OpenCV', 'SAM', 'Tauri', 'React', 'Spring Boot', 'Docker', 'AWS'],
+  },
+  {
+    period: '2023.04 – 2024.02',
+    role: 'Student Researcher',
+    org: '㈜앤서레이',
+    location: 'Gyeonggi-do, South Korea',
+    bullets: [
+      'Developed a React Native mobile application for a Raman spectroscopy-based remote plant component analysis system',
+    ],
+    tags: ['React Native'],
+  },
+]
 
 const ExperienceItem = ({ period, role, org, location, bullets, tags }) => (
   <TimelineItem badge={period} title={role} org={[org, location].filter(Boolean).join(' · ')} wide>
