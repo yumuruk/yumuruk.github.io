@@ -110,11 +110,6 @@ const HIGHLIGHTS = [
     unit: 'dB PSNR',
     text: 'Second-best fidelity to the reference (SSIM 0.9246, LPIPS 0.1205) while optimizing for detection.',
   },
-  {
-    value: '2.67',
-    unit: 'Avg. rank',
-    text: 'Best overall rank across the enhancement and detection metrics on UJED.',
-  },
 ]
 
 const Ablation = () => {
@@ -219,7 +214,7 @@ export default function DgunetPage() {
       <Hero />
 
       <main className="mx-auto max-w-5xl px-4 sm:px-6">
-        <div className="mx-auto mt-8 grid max-w-4xl gap-4 sm:grid-cols-3">
+        <div className="mx-auto mt-8 grid max-w-3xl gap-4 sm:grid-cols-2">
           {HIGHLIGHTS.map((h) => (
             <div key={h.unit} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
               <p className="text-3xl font-bold tracking-tight text-slate-900">
