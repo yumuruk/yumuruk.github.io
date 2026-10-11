@@ -113,7 +113,7 @@ src/pages/dgunet/
 public/dgunet/                    이미지 (samples/<id>/{input,ours,ref}{,_det}.jpg, gradcam, term, overview.png)
 ```
 
-수치·수식은 최종 LaTeX 원고 기준. 샘플은 UJED test 중 논문 Fig. 7 장면 3개이며, 박스 없는 버전(입력·DGU-Net 출력·
+수치·수식은 최종 LaTeX 원고 기준. 샘플은 UJED test 중 논문 Fig. 7 장면 2개이며, 박스 없는 버전(입력·DGU-Net 출력·
 레퍼런스)과 박스 있는 버전이 같은 장면·같은 버전인 것만 골랐다.
 
 ## 배포

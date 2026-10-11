@@ -68,7 +68,6 @@ const sample = (id, caption) => {
 export const SAMPLES = [
   sample('YN030001_14419', 'Echinus & holothurian next to a rock'),
   sample('GP010294_31723', 'Starfish & echinus on a sandy bed'),
-  sample('2019v200642', 'Scallops under a heavy green cast'),
 ]
 
 export const GRADCAM = [
