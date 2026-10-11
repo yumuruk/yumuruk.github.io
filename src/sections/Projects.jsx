@@ -3,17 +3,31 @@ import Panel from '../components/Panel.jsx'
 import TimelineItem, { DetailRow } from '../components/TimelineItem.jsx'
 
 /**
+ * 프로젝트 설명에 나오는 분석 기법 용어. 처음 보는 사람이 바로 찾아볼 수 있게
+ * 프로젝트 카드의 Terms 줄에 정식 명칭 + 설명 링크로 보여준다.
+ */
+const TERMS = {
+  Raman: { name: 'Raman spectroscopy', href: 'https://en.wikipedia.org/wiki/Raman_spectroscopy' },
+  XRF: { name: 'X-ray fluorescence', href: 'https://en.wikipedia.org/wiki/X-ray_fluorescence' },
+  LIBS: {
+    name: 'Laser-induced breakdown spectroscopy',
+    href: 'https://en.wikipedia.org/wiki/Laser-induced_breakdown_spectroscopy',
+  },
+}
+
+/**
  * 프로젝트 항목. 순서는 경력기술서의 프로젝트 순서를 따른다.
  * company가 EXPERIENCE의 org와 같으면 그 경력 카드에 이 프로젝트로 가는 링크가 붙는다.
- * 공개 사이트라 고객사명은 넣지 않는다.
+ * 공개 사이트라 고객사명은 넣지 않고, 역할은 과장 없이 한 일·쓸 수 있는 기술 위주로 쓴다.
  *
  * {
  *   id: 'ess',                          // 앵커 → #project-ess
  *   period: '2026.05 – Present',
  *   title: 'Web-based ESS Remote Monitoring',
  *   company: 'CSI Vision',
- *   role: 'Project lead',               // 선택
+ *   role: 'Web application development', // 선택
  *   bullets: ['...'],                   // 선택
+ *   terms: ['XRF'],                     // 선택 — TERMS의 키
  *   stack: ['React', 'Docker'],         // 선택
  * }
  */
@@ -23,10 +37,11 @@ export const PROJECTS = [
     period: '2026.05 – Present',
     title: 'Web-based ESS Remote Monitoring and Operation Profile Analysis',
     company: 'CSI Vision',
-    role: 'Project lead (weekly meetings, web platform implementation, documentation)',
+    role: 'Web application development',
     bullets: [
-      'Designed KPIs for analyzing ESS (energy storage system) operation',
-      'Developed the web application for remote monitoring and operation profile analysis',
+      'Developed a web application for remote monitoring and operation profile analysis of ESS (energy storage system) data',
+      'Implemented the backend with Spring Boot and the frontend with React, deployed with Docker on AWS',
+      'Participated in defining KPIs for ESS operation analysis',
     ],
     stack: ['Spring Boot', 'React', 'Docker', 'AWS (EC2, S3)'],
   },
@@ -37,15 +52,23 @@ export const PROJECTS = [
     company: 'CSI Vision',
     role: 'Algorithm improvement',
     bullets: ['Replaced the preprocessing of the existing spectral data, improving algorithm performance'],
+    terms: ['Raman'],
     stack: ['Scikit-learn', 'MLOps'],
   },
   {
-    id: 'xrf',
+    id: 'xrf-libs',
     period: '2026.04 – 2026.09',
-    title: 'XRF Foreign Material Analysis Web Platform',
+    title: 'XRF and LIBS Analysis Platforms',
     company: 'CSI Vision',
-    role: 'Web platform implementation',
-    stack: ['Tauri', 'SAM (Hugging Face)', 'OpenCV', 'Tesseract (OCR)'],
+    role: 'Platform development',
+    bullets: [
+      'XRF: developed a desktop application for reviewing foreign material analysis results',
+      'Segmented particles in optical images with SAM 2 to measure particle size',
+      'Extracted particle coordinates and imaging conditions from instrument screenshots with Tesseract OCR',
+      'LIBS: developed a spectral data analysis tool (peak-based univariate analysis, multivariate regression)',
+    ],
+    terms: ['XRF', 'LIBS'],
+    stack: ['Tauri', 'React', 'Python', 'SAM 2 (Hugging Face)', 'Tesseract (OCR)', 'OpenCV'],
   },
   {
     id: 'raman-plant-app',
@@ -54,15 +77,37 @@ export const PROJECTS = [
     company: 'Answeray',
     role: 'Mobile application development',
     bullets: ['Developed a React Native application for a Raman spectroscopy-based remote plant component analysis system'],
+    terms: ['Raman'],
     stack: ['React Native'],
   },
 ]
 
 export const projectAnchor = (id) => `project-${id}`
 
-const ProjectItem = ({ id, period, title, company, role, bullets, stack }) => (
+const TermLinks = ({ terms }) => (
+  <DetailRow label="Terms">
+    {terms.map((key, i) => (
+      <span key={key}>
+        {i > 0 && ' · '}
+        <a
+          href={TERMS[key].href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-slate-700 hover:text-emerald-700 underline decoration-emerald-200 underline-offset-2 transition-colors"
+        >
+          {/* 약어(XRF)는 정식 명칭을 괄호로, Raman처럼 명칭에 이미 포함된 건 명칭만 */}
+          {TERMS[key].name.startsWith(key) ? TERMS[key].name : `${key} (${TERMS[key].name})`}
+          <i className="fas fa-arrow-up-right-from-square ml-1 text-[10px]" />
+        </a>
+      </span>
+    ))}
+  </DetailRow>
+)
+
+const ProjectItem = ({ id, period, title, company, role, bullets, terms, stack }) => (
   <TimelineItem id={projectAnchor(id)} badge={period} title={title} org={company} wide>
     {role && <DetailRow label="Role">{role}</DetailRow>}
+    {terms?.length > 0 && <TermLinks terms={terms} />}
 
     {bullets?.length > 0 && (
       <ul className="space-y-1.5 list-disc list-inside">
