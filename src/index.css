@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  /* 상단 네비게이션의 앵커 이동을 부드럽게 */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+/*
+ * Vite React 템플릿에서 남아있던 기본 스타일.
+ * 단, 아래 세 가지는 걷어냈다 — 요소 셀렉터라서 Tailwind 유틸리티를 이기고
+ * 컴포넌트 스타일을 깨뜨리기 때문:
+ *   a / a:hover { color }  → 모든 링크의 hover 색을 보라색으로 덮어씀
+ *   button { background-color }  → 모바일 햄버거 버튼이 회색/검정으로 칠해짐
+ *   h1 { font-size: 3.2em }      → 죽은 규칙
+ * color-scheme도 light로 고정했다. light dark로 두면 시스템이 다크 모드일 때
+ * 밝은 페이지에 어두운 스크롤바/폼 컨트롤이 섞여 나온다.
+ */
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  width: 100%;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
