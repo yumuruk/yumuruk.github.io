@@ -6,12 +6,14 @@ import ResultsTable from './components/ResultsTable.jsx'
 import DetectionGrid from './components/DetectionGrid.jsx'
 import Bibtex from './components/Bibtex.jsx'
 import Tex from './components/Tex.jsx'
+import Cite, { withCites, References } from './components/Cite.jsx'
 import { PAPER, LINKS, ABSTRACT, CONTRIBUTIONS, GRADCAM, ABLATION, IMAGING_MODEL } from './data.js'
 
 const NAV = [
   { id: 'overview', label: 'Overview' },
   { id: 'method', label: 'Method' },
   { id: 'results', label: 'Results' },
+  { id: 'references', label: 'References' },
   { id: 'bibtex', label: 'BibTeX' },
 ]
 
@@ -185,7 +187,7 @@ const GradCam = () => {
       </div>
       <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
         <p className="max-w-xl text-xs leading-relaxed text-slate-500">
-          Grad-CAM from the last backbone layer of YOLOv9e, with its predicted boxes in green. On the raw input the
+          Grad-CAM <Cite k="gradcam" /> from the last backbone layer of YOLOv9e <Cite k="yolov9" />, with its predicted boxes in green. On the raw input the
           detector&apos;s attention falls on the background; on DGU-Net output it concentrates on the objects.
         </p>
         <div className="flex gap-2">
@@ -233,7 +235,7 @@ export default function DgunetPage() {
               <div key={c.title} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
                 <i className={`fas ${c.icon} text-lg text-emerald-600`} />
                 <h3 className="mt-3 font-semibold text-slate-900">{c.title}</h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-slate-600">{c.text}</p>
+                <p className="mt-1.5 text-sm leading-relaxed text-slate-600">{withCites(c.text)}</p>
               </div>
             ))}
           </div>
@@ -291,6 +293,10 @@ export default function DgunetPage() {
           </Sub>
         </Section>
 
+        <Section id="references" kicker="References" title="References">
+          <References />
+        </Section>
+
         <Section id="bibtex" kicker="Citation" title="BibTeX">
           <Bibtex />
         </Section>
@@ -300,7 +306,7 @@ export default function DgunetPage() {
         <a href="/" className="font-semibold text-emerald-700 hover:text-emerald-900">
           Hansung Yu
         </a>{' '}
-        · Images from the UJED test set (built on URPC).
+        · Images from the UJED test set (built on URPC 2019 <Cite k="urpc" />).
       </footer>
     </div>
   )

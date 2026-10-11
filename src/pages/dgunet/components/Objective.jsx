@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Tex from './Tex.jsx'
+import { withCites } from './Cite.jsx'
 import { OBJECTIVE, OBJECTIVE_STACKED, FULL_OBJECTIVE, TERMS } from '../data.js'
 
 // Tailwind가 클래스를 찾을 수 있게 색별 클래스는 문자열로 고정해 둔다.
@@ -76,7 +77,7 @@ export default function Objective() {
         <div className="overflow-x-auto text-slate-800">
           <Tex block tex={term.def} />
         </div>
-        <p className="mt-2 text-sm leading-relaxed text-slate-600">{term.text}</p>
+        <p className="mt-2 text-sm leading-relaxed text-slate-600">{withCites(term.text)}</p>
       </div>
 
       <div className="border-t border-slate-100">

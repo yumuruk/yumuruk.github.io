@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { SAMPLES } from '../data.js'
+import Cite from './Cite.jsx'
 
 /** 같은 장면에서 기법별 검출 결과를 나란히 (논문 Fig. 7). */
 export default function DetectionGrid() {
@@ -49,6 +50,12 @@ export default function DetectionGrid() {
               className={`mt-1.5 text-center text-xs ${t.ours ? 'font-semibold text-emerald-800' : 'text-slate-600'}`}
             >
               {t.name}
+              {t.ref && (
+                <>
+                  {' '}
+                  <Cite k={t.ref} />
+                </>
+              )}
             </figcaption>
           </figure>
         ))}

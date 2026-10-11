@@ -1,5 +1,6 @@
 import { Fragment } from 'react'
 import { METRICS, RESULTS } from '../data.js'
+import Cite from './Cite.jsx'
 
 const cellClass = (mark) =>
   mark === 'best' ? 'font-bold text-emerald-700' : mark === 'second' ? 'underline decoration-sky-400 underline-offset-4' : ''
@@ -38,6 +39,11 @@ export default function ResultsTable() {
                 <tr key={row.name} className={`border-b border-slate-100 ${row.ours ? 'bg-emerald-50/70' : ''}`}>
                   <td className={`px-4 py-2 text-left ${row.ours ? 'font-semibold text-emerald-900' : 'text-slate-700'}`}>
                     {row.name}
+                    {row.ref && (
+                      <span className="ml-1.5 text-xs">
+                        <Cite k={row.ref} />
+                      </span>
+                    )}
                   </td>
                   {row.values.map((v, i) => (
                     <td
@@ -58,7 +64,7 @@ export default function ResultsTable() {
       <p className="px-4 py-3 text-xs text-slate-500">
         UJED test set. <span className="font-bold text-emerald-700">Bold</span> = best,{' '}
         <span className="underline decoration-sky-400 underline-offset-4">underline</span> = second best, as marked
-        in the paper. Detection uses YOLOv9e fine-tuned on each method&apos;s enhanced images.
+        in the paper. Detection uses YOLOv9e <Cite k="yolov9" /> fine-tuned on each method&apos;s enhanced images.
       </p>
     </div>
   )
