@@ -15,6 +15,7 @@ const PUBLICATIONS = [
       </>
     ),
     links: [
+      { label: 'Project Page', href: '/dgunet/', primary: true },
       { label: 'Paper', href: 'https://doi.org/10.1109/ACCESS.2026.3659134' },
       { label: 'Code', href: 'https://github.com/yumuruk/DGUNet' },
     ],
@@ -80,9 +81,13 @@ const PublicationItem = ({ tag, title, authors, venue, links }) => (
           <a
             key={link.label}
             href={link.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-3 py-1 text-xs font-semibold border border-slate-300 rounded hover:bg-slate-100"
+            // 사이트 안 페이지(/dgunet/ 등)는 같은 탭, 외부 링크는 새 탭
+            {...(link.href.startsWith('/') ? {} : { target: '_blank', rel: 'noopener noreferrer' })}
+            className={`px-3 py-1 text-xs font-semibold border rounded ${
+              link.primary
+                ? 'border-emerald-600 bg-emerald-600 text-white hover:bg-emerald-700'
+                : 'border-slate-300 hover:bg-slate-100'
+            }`}
           >
             {link.label}
           </a>

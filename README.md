@@ -93,6 +93,29 @@ src/
 `color-scheme`도 `light dark` → `light`로 고정했다. 밝은 페이지에 시스템 다크 모드의
 어두운 스크롤바가 섞여 나오던 문제.
 
+## 논문 프로젝트 페이지 (`/dgunet/`)
+
+IEEE Access 2026 논문(DGU-Net) 소개 페이지. Vite 멀티 페이지라 `dgunet/index.html`이 별도 엔트리로 빌드되고
+(`vite.config.js`의 `rollupOptions.input`), 메인 사이트 Publications의 **Project Page** 버튼이 여기로 연결된다.
+
+```
+dgunet/index.html                 엔트리 (→ src/pages/dgunet/main.jsx)
+src/pages/dgunet/
+  data.js                         논문 정보·샘플 목록·결과 표·수식(KaTeX) — 내용 수정은 여기서
+  DgunetPage.jsx                  섹션 배치
+  dgunet.css                      수식 항 하이라이트
+  components/
+    ComparisonViewer.jsx          첫 화면 비교 뷰어 (Input/Reference ↔ DGU-Net, 검출 박스 토글)
+    CompareSlider.jsx             드래그 비교 슬라이더
+    Objective.jsx                 핵심 최적화 식 — 항을 가리키면 강조·설명, 전체 식(식 19) 펼치기
+    DetectionTerm.jsx             검출 유도 항의 클래스별 마스크 F(J)_i / M_i
+    ResultsTable.jsx  DetectionGrid.jsx  Bibtex.jsx  Tex.jsx
+public/dgunet/                    이미지 (samples/<id>/{input,ours,ref}{,_det}.jpg, gradcam, term, overview.png)
+```
+
+수치·수식은 최종 LaTeX 원고 기준. 샘플은 UJED test 중 논문 Fig. 7 장면 3개이며, 박스 없는 버전(입력·DGU-Net 출력·
+레퍼런스)과 박스 있는 버전이 같은 장면·같은 버전인 것만 골랐다.
+
 ## 배포
 
 `main`에 push하면 `.github/workflows/deploy.yml`이 빌드해서 GitHub Pages로 배포한다
