@@ -65,8 +65,8 @@ export const PROJECTS = [
     role: 'Platform development',
     bullets: [
       'XRF: developed a desktop application for reviewing foreign material analysis results',
-      'Segmented particles in optical images with SAM 2 to measure particle size',
-      'Extracted particle coordinates and imaging conditions from instrument screenshots with Tesseract OCR',
+      'Foreign-material size: segmented each particle in optical images with SAM 2 and measured its size',
+      'Foreign-material location: extracted particle coordinates from instrument screenshots with Tesseract OCR',
       'LIBS: developed a spectral data analysis tool (peak-based univariate analysis, multivariate regression)',
     ],
     terms: ['XRF', 'LIBS'],
