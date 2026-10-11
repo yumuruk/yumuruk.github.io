@@ -55,7 +55,7 @@ const ExperienceItem = ({ period, role, org, location, bullets, tags }) => {
   const projects = PROJECTS.filter((p) => p.company === org)
 
   return (
-    <TimelineItem badge={period} title={role} org={[org, location].filter(Boolean).join(' · ')} wide>
+    <TimelineItem period={period} title={role} org={[org, location].filter(Boolean).join(' · ')}>
       {(projects.length > 0 || bullets?.length > 0 || tags?.length > 0) && (
         <>
           {projects.length > 0 && <ProjectLinks projects={projects} />}
@@ -88,13 +88,11 @@ export default function Experience() {
     <Section id="experience" title="Experience">
       <div className="pb-4">
         {EXPERIENCE.length > 0 ? (
-          <Panel>
-            <div className="divide-y divide-emerald-100">
-              {EXPERIENCE.map((e) => (
-                <ExperienceItem key={`${e.period}-${e.role}`} {...e} />
-              ))}
-            </div>
-          </Panel>
+          <div className="space-y-4">
+            {EXPERIENCE.map((e) => (
+              <ExperienceItem key={`${e.period}-${e.role}`} {...e} />
+            ))}
+          </div>
         ) : (
           <Panel bodyClassName="px-6 py-12 text-center text-slate-600">
             <p className="text-lg italic">Will be updated soon.</p>

@@ -1,5 +1,4 @@
 import Section from '../components/Section.jsx'
-import Panel from '../components/Panel.jsx'
 import TimelineItem, { DetailRow } from '../components/TimelineItem.jsx'
 
 /**
@@ -105,7 +104,7 @@ const TermLinks = ({ terms }) => (
 )
 
 const ProjectItem = ({ id, period, title, company, role, bullets, terms, stack }) => (
-  <TimelineItem id={projectAnchor(id)} badge={period} title={title} org={company} wide>
+  <TimelineItem id={projectAnchor(id)} period={period} title={title} org={company}>
     {role && <DetailRow label="Role">{role}</DetailRow>}
     {terms?.length > 0 && <TermLinks terms={terms} />}
 
@@ -133,11 +132,11 @@ export default function Projects() {
   return (
     <Section id="projects" title="Projects">
       <div className="pb-4">
-        <Panel>
+        <div className="space-y-4">
           {PROJECTS.map((p) => (
             <ProjectItem key={p.id} {...p} />
           ))}
-        </Panel>
+        </div>
       </div>
     </Section>
   )

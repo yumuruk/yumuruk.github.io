@@ -1,24 +1,11 @@
 import profileImg from '../assets/yhs.jpg'
-
-const VelogIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    className="w-[0.85em] h-[0.85em] translate-y-[2px]"
-  >
-    <path d="M0 3C0 1.343 1.343 0 3 0h18c1.657 0 3 1.343 3 3v18c0 1.657-1.343 3-3 3H3c-1.657 0-3-1.343-3-3V3zm10.5 16h3L17.7 8h-2.4l-3.6 8.3L8.4 8H6l4.5 11z" />
-  </svg>
-)
-
-const socialLink =
-  'text-slate-500 hover:text-emerald-800 text-3xl transition-transform hover:scale-110'
+import SocialLinks from '../components/SocialLinks.jsx'
 
 export default function Home() {
   return (
     <section
       id="home"
-      className="scroll-mt-20 w-full min-h-[calc(100vh-4rem)] px-4 flex items-start justify-center pt-20 sm:pt-32 pb-16"
+      className="lg:hidden scroll-mt-20 w-full min-h-[calc(100vh-4rem)] px-4 flex items-start justify-center pt-20 sm:pt-32 pb-16"
     >
       <div className="max-w-2xl w-full">
         <div className="text-center">
@@ -35,38 +22,7 @@ export default function Home() {
             <br className="hidden sm:block" />
           </p>
 
-          <div className="flex justify-center items-center space-x-6">
-            <a
-              href="https://github.com/yumuruk"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="GitHub"
-              className={socialLink}
-            >
-              <i className="fab fa-github" />
-            </a>
-            <a
-              href="https://www.linkedin.com/in/%ED%95%9C%EC%84%B1-%EC%9C%A0-617055317/"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="LinkedIn"
-              className={socialLink}
-            >
-              <i className="fab fa-linkedin" />
-            </a>
-            <a
-              href="https://velog.io/@yumuruk/posts"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="velog"
-              className="text-slate-500 hover:text-[#20c997] text-3xl transition-transform hover:scale-110 flex items-center"
-            >
-              <VelogIcon />
-            </a>
-            <a href="mailto:chiccc98@gmail.com" aria-label="Email" className={socialLink}>
-              <i className="fas fa-envelope" />
-            </a>
-          </div>
+          <SocialLinks className="justify-center space-x-6" linkClassName="text-3xl transition-transform hover:scale-110" />
         </div>
       </div>
     </section>

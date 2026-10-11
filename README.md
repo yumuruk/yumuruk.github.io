@@ -23,15 +23,17 @@ React 19 · Vite 7 · Tailwind CSS 3 · Font Awesome 7
 ```
 src/
   main.jsx              진입점 (index.css → Font Awesome → App)
-  App.jsx               섹션을 순서대로 쌓는 곳
+  App.jsx               레이아웃(모바일 Header / 데스크톱 Sidebar) + 섹션을 순서대로 쌓는 곳
   navigation.js         섹션 목록 = 네비게이션 목록 (단일 소스)
   index.css             Tailwind 지시자 + base 레이어
   components/
-    Header.jsx          sticky 네비게이션 + 스크롤스파이 + 모바일 메뉴
+    Header.jsx          lg 미만 전용 sticky 상단 네비게이션 + 모바일 메뉴
+    Sidebar.jsx         lg 이상 전용 왼쪽 고정 사이드바 (프로필 + 섹션 인덱스 + 링크)
+    SocialLinks.jsx     GitHub / LinkedIn / velog / Email 링크 (Home·Sidebar 공용)
     Footer.jsx
     Section.jsx         id·제목을 갖는 한 구획 (scroll-mt 포함)
     Panel.jsx           흰색 카드 (제목 선택)
-    TimelineItem.jsx    배지+제목+소속 카드 (Education / Experience 공용)
+    TimelineItem.jsx    제목+기간+소속 카드 (Education / Experience / Projects 공용)
     styles.js           카드 그림자 상수
   hooks/
     useScrollSpy.js     현재 보이는 섹션 판별 → 네비 하이라이트
@@ -41,7 +43,8 @@ src/
 ```
 
 `Experience.jsx` 맨 위의 `EXPERIENCE` 배열이 비어 있으면 "Will be updated soon." 패널이 나온다.
-항목을 채우면 Education과 같은 타임라인 카드로 렌더된다.
+각 경력 카드에는 `Projects.jsx`의 `PROJECTS` 중 `company`가 같은 프로젝트의 제목이 링크로 붙고,
+누르면 해당 프로젝트 카드(`#project-<id>`)로 이동한다. 프로젝트 상세는 `PROJECTS`에만 쓴다.
 
 ### 섹션 추가하기
 
@@ -53,7 +56,10 @@ src/
 
 ## 네비게이션 동작
 
-- 헤더는 `sticky top-0 z-50`이라 스크롤 위치와 무관하게 항상 떠 있다.
+- 화면 폭에 따라 네비게이션이 바뀐다 (Tailwind `lg` = 1024px 기준).
+  - lg 미만: `Header`(sticky 상단 바) + `Home`(프로필 히어로)
+  - lg 이상: `Sidebar`가 왼쪽에 고정되고 프로필·인덱스를 함께 보여주므로 `Header`와 `Home`은 숨긴다.
+    `Footer`를 본문 열 안에 둬야 sticky 사이드바가 페이지 끝에서 밀려 올라가지 않는다.
 - 네비 링크는 평범한 `<a href="#id">`. 이동은 CSS `scroll-behavior: smooth`가 처리하고,
   `prefers-reduced-motion`이면 즉시 이동으로 떨어진다.
 - 각 섹션의 `scroll-mt-20`(80px)이 헤더(65px) 아래로 제목이 숨는 걸 막는다.

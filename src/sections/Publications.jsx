@@ -1,5 +1,4 @@
 import Section from '../components/Section.jsx'
-import Panel from '../components/Panel.jsx'
 import { CARD_SHADOW_HOVER } from '../components/styles.js'
 
 const ME = 'Hansung Yu'
@@ -64,7 +63,7 @@ const AuthorList = ({ authors }) => (
 
 const PublicationItem = ({ tag, title, authors, venue, links }) => (
   <div
-    className={`grid grid-cols-1 sm:grid-cols-[80px_1fr] gap-4 sm:gap-6 p-4 sm:p-6 my-4 bg-white rounded-md border border-emerald-100 ${CARD_SHADOW_HOVER}`}
+    className={`grid grid-cols-1 sm:grid-cols-[80px_1fr] gap-4 sm:gap-6 p-4 sm:p-6 bg-white rounded-md border border-emerald-100 ${CARD_SHADOW_HOVER}`}
   >
     <div className="sm:pt-1">
       <span className="inline-flex items-center px-3 py-1 rounded-sm text-xs font-semibold bg-emerald-600 text-white">
@@ -97,11 +96,11 @@ export default function Publications() {
   return (
     <Section id="publications" title="Publications">
       <div className="pb-4">
-        <Panel>
+        <div className="space-y-4">
           {PUBLICATIONS.map((p, i) => (
             <PublicationItem key={i} {...p} />
           ))}
-        </Panel>
+        </div>
       </div>
     </Section>
   )

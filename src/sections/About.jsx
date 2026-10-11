@@ -83,7 +83,7 @@ const EducationItem = ({ year, degree, org, thesis, gpa, majorGpa, grade, superv
   const hasDetail = thesis || supervisor || gpa || majorGpa || grade
 
   return (
-    <TimelineItem badge={year} title={degree} org={org}>
+    <TimelineItem period={year} title={degree} org={org}>
       {hasDetail ? (
         <>
           {thesis && (
@@ -139,7 +139,7 @@ const EducationItem = ({ year, degree, org, thesis, gpa, majorGpa, grade, superv
 
 const InterestItem = ({ label, text }) => (
   <div
-    className={`grid grid-cols-1 sm:grid-cols-[200px_1fr] gap-4 p-6 my-4 bg-white rounded-md border border-emerald-100 ${CARD_SHADOW_HOVER}`}
+    className="grid grid-cols-1 sm:grid-cols-[200px_1fr] gap-2 sm:gap-4 py-4 first:pt-0 last:pb-0"
   >
     <div className="sm:pt-1">
       <Tag>{label}</Tag>
@@ -156,13 +156,14 @@ export default function About() {
           <InfoList items={INFO} />
         </Panel>
 
-        <Panel title="Education">
-          <div className="divide-y divide-emerald-100">
+        <div>
+          <h3 className="text-2xl font-light text-emerald-900 mb-4">Education</h3>
+          <div className="space-y-4">
             {EDUCATION.map((e) => (
               <EducationItem key={`${e.year}-${e.degree}`} {...e} />
             ))}
           </div>
-        </Panel>
+        </div>
 
         <Panel title="Academic Interests">
           <div className="divide-y divide-emerald-100">

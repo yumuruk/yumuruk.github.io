@@ -1,48 +1,31 @@
 import { CARD_SHADOW_HOVER } from './styles.js'
 
-/** 왼쪽 배지(연도/기간). 긴 기간 문자열도 줄바꿈되도록 열어뒀다. */
-export const Badge = ({ children }) => (
-  <span
-    className={`inline-flex items-center justify-center min-w-[64px] min-h-8 px-3 py-1 rounded-sm text-sm font-semibold leading-tight text-center bg-emerald-600 text-white ${CARD_SHADOW_HOVER}`}
-  >
-    {children}
-  </span>
-)
-
 /**
- * 배지 + 제목 + 소속으로 이루어진 타임라인 카드.
- * children을 주면 회색 상세 박스가 아래에 붙는다.
- * Education / Experience가 같은 모양을 쓴다.
+ * 제목 + 기간 + 소속으로 이루어진 타임라인 카드. Education / Experience / Projects가 같은 모양을 쓴다.
+ * 기간은 제목 줄 오른쪽에 두고(좁으면 아래로 줄바꿈), children을 주면 구분선 아래 상세가 붙는다.
+ * id가 있으면 앵커 대상: 헤더 아래로 숨지 않게 scroll-mt, 링크로 도착하면 테두리 강조.
  */
-export default function TimelineItem({ id, badge, title, org, wide = false, children }) {
-  // wide(긴 기간 배지)는 모바일에서 배지를 위로 쌓아 본문 폭을 확보한다.
-  const columns = wide
-    ? 'grid-cols-1 gap-3 sm:grid-cols-[128px_1fr] sm:gap-5'
-    : 'grid-cols-[80px_1fr] sm:grid-cols-[96px_1fr] gap-5'
-
+export default function TimelineItem({ id, period, title, org, children }) {
   return (
-    // id가 있으면 앵커 대상: 헤더 아래로 숨지 않게 scroll-mt, 링크로 도착하면 테두리 강조.
     <div
       id={id}
-      className={`grid ${columns} p-6 my-4 scroll-mt-20 bg-white rounded-md border border-emerald-100 target:ring-2 target:ring-emerald-400 ${CARD_SHADOW_HOVER}`}
+      className={`p-5 sm:p-6 bg-white rounded-lg border border-emerald-100 scroll-mt-20 target:ring-2 target:ring-emerald-400 ${CARD_SHADOW_HOVER}`}
     >
-      <div className="pt-1">
-        <Badge>{badge}</Badge>
-      </div>
-      <div>
+      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
         <div className="text-base sm:text-lg font-semibold text-slate-900">{title}</div>
-        {org && <div className="text-slate-700 mt-1 font-medium">{org}</div>}
-        {children && (
-          <div className="mt-3 space-y-1.5 text-sm text-slate-600 bg-slate-50 p-3 rounded-md border border-slate-100">
-            {children}
-          </div>
+        {period && (
+          <span className="text-sm font-semibold text-emerald-700 tabular-nums whitespace-nowrap">{period}</span>
         )}
       </div>
+      {org && <div className="text-slate-600 mt-0.5 font-medium">{org}</div>}
+      {children && (
+        <div className="mt-4 pt-4 border-t border-emerald-100 space-y-2 text-sm text-slate-600">{children}</div>
+      )}
     </div>
   )
 }
 
-/** 상세 박스 안의 "라벨: 값" 한 줄. */
+/** 상세 영역 안의 "라벨: 값" 한 줄. */
 export const DetailRow = ({ label, children }) => (
   <div className="flex gap-2">
     <span className="font-bold text-emerald-700 shrink-0">{label}:</span>
