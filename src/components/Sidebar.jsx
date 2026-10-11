@@ -2,6 +2,7 @@ import profileImg from '../assets/yhs.jpg'
 import { SECTIONS, SCROLL_OFFSET } from '../navigation.js'
 import { useScrollSpy } from '../hooks/useScrollSpy.js'
 import SocialLinks from './SocialLinks.jsx'
+import { ROLE, Focus } from '../profile.jsx'
 
 // 사이드바가 곧 Home(프로필) 역할을 하므로 인덱스에서 Home은 뺀다.
 const NAV = SECTIONS.filter((s) => s.id !== 'home')
@@ -22,8 +23,8 @@ export default function Sidebar() {
         className="w-24 h-24 rounded-full object-cover object-[center_20%] border-4 border-white shadow-md"
       />
       <h1 className="mt-6 text-3xl font-bold tracking-tight text-slate-900">YuHansung</h1>
-      <p className="mt-2 text-base font-medium text-emerald-700">ML/DL Engineer</p>
-      <p className="mt-3 text-sm leading-relaxed text-slate-600">Computer vision / Image processing</p>
+      <p className="mt-2 text-base font-medium text-emerald-700">{ROLE}</p>
+      <p className="mt-3 text-sm leading-relaxed text-slate-600"><Focus /></p>
 
       <nav className="mt-12">
         <ul className="space-y-1">

@@ -150,7 +150,7 @@ const InterestItem = ({ label, text }) => (
 
 export default function About() {
   return (
-    <Section id="about" title="About Me">
+    <Section id="about" title="About Me" className="lg:min-h-screen">
       <div className="space-y-8 pb-4">
         <Panel title="Information">
           <InfoList items={INFO} />

@@ -1,5 +1,6 @@
 import profileImg from '../assets/yhs.jpg'
 import SocialLinks from '../components/SocialLinks.jsx'
+import { ROLE, Focus } from '../profile.jsx'
 
 export default function Home() {
   return (
@@ -17,10 +18,8 @@ export default function Home() {
             Hello, I'm <span className="text-emerald-600">YuHansung</span>
           </h1>
 
-          <p className="text-lg sm:text-xl text-slate-600 mb-8 leading-relaxed">
-            I am a student interested in Computer Vision/Deep learning
-            <br className="hidden sm:block" />
-          </p>
+          <p className="text-lg sm:text-xl font-medium text-emerald-700">{ROLE}</p>
+          <p className="mt-2 mb-8 text-base sm:text-lg text-slate-600 leading-relaxed"><Focus /></p>
 
           <SocialLinks className="justify-center space-x-6" linkClassName="text-3xl transition-transform hover:scale-110" />
         </div>
