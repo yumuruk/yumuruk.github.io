@@ -34,20 +34,20 @@ export const PROJECTS = [
   {
     id: 'ess',
     period: '2026.05 – Present',
-    title: 'Web-based ESS Remote Monitoring and Operation Profile Analysis',
+    title: 'ESS Remote Monitoring Platform',
     company: 'CSI Vision',
-    role: 'Web application development',
+    role: 'System design, web development, project management',
     bullets: [
-      'Developed a web application for remote monitoring and operation profile analysis of ESS (energy storage system) data',
+      'Designed the web application and KPIs for remote monitoring and operation profile analysis of ESS (energy storage system) data',
       'Implemented the backend with Spring Boot and the frontend with React, deployed with Docker on AWS',
-      'Participated in defining KPIs for ESS operation analysis',
+      'Managed the project through weekly progress meetings and technical documentation',
     ],
     stack: ['Spring Boot', 'React', 'Docker', 'AWS (EC2, S3)'],
   },
   {
     id: 'raman',
     period: '2026.03 – Present',
-    title: 'Raman Spectrum-based Substance Identification Algorithm',
+    title: 'Raman Substance Identification Algorithm',
     company: 'CSI Vision',
     role: 'Algorithm improvement',
     bullets: ['Replaced the preprocessing of the existing spectral data, improving algorithm performance'],
@@ -57,7 +57,7 @@ export const PROJECTS = [
   {
     id: 'xrf-libs',
     period: '2026.04 – 2026.09',
-    title: 'XRF and LIBS Analysis Platforms',
+    title: 'XRF & LIBS Analysis Platforms',
     company: 'CSI Vision',
     role: 'Platform development',
     bullets: [
@@ -72,7 +72,7 @@ export const PROJECTS = [
   {
     id: 'raman-plant-app',
     period: '2023.04 – 2024.02',
-    title: 'Raman Spectroscopy-based Remote Plant Component Analysis App',
+    title: 'Raman Plant Analysis App',
     company: 'Answeray',
     role: 'Mobile application development',
     bullets: ['Developed a React Native application for a Raman spectroscopy-based remote plant component analysis system'],
