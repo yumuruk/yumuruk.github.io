@@ -1,126 +1,76 @@
-# yumuruk-portfolio
+# yumuruk.github.io
 
-`yumuruk.github.io` 개인 사이트의 **React 소스**. 원본 소스가 남아있지 않아 배포된 번들에서 복원한 뒤,
-페이지 전환 방식을 **한 페이지 스크롤 + 상단 앵커 네비게이션**으로 바꾼 버전이다.
+유한성(Hansung Yu)의 개인 사이트 소스입니다. → https://yumuruk.github.io
+
+| 경로 | 내용 |
+|---|---|
+| `/` | 포트폴리오 — About, Experience, Publications, Projects |
+| `/dgunet/` | 논문 프로젝트 페이지 — *Detection-Guided Deep Unfolding for Joint Underwater Image Enhancement and Object Detection* (IEEE Access, 2026) |
+
+## 실행
 
 ```bash
 npm install
-npm run dev      # http://localhost:5173
-npm run build    # dist/
-npm run preview
+npm run dev       # http://localhost:5173  (프로젝트 페이지: /dgunet/)
+npm run build     # dist/
+npm run preview   # 빌드 결과 확인
 ```
 
 ## 스택
 
-React 19 · Vite 7 · Tailwind CSS 3 · Font Awesome 7
-
-라우터는 쓰지 않는다. 원래는 `react-router-dom` 7의 `HashRouter`로 `/About`, `/Publications`,
-`/Projects`가 각각 별도 view였는데, 지금은 전부 한 문서 안의 섹션이다.
-해시(`#about`)가 곧 스크롤 앵커이므로 HashRouter와는 공존할 수 없어 의존성을 걷어냈다.
+React 19 · Vite 7 (멀티 페이지) · Tailwind CSS 3 · Font Awesome 7 · KaTeX
 
 ## 구조
 
 ```
+index.html                 포트폴리오 엔트리 → src/main.jsx
+dgunet/index.html          프로젝트 페이지 엔트리 → src/pages/dgunet/main.jsx
 src/
-  main.jsx              진입점 (index.css → Font Awesome → App)
-  App.jsx               레이아웃(모바일 Header / 데스크톱 Sidebar) + 섹션을 순서대로 쌓는 곳
-  navigation.js         섹션 목록 = 네비게이션 목록 (단일 소스)
-  index.css             Tailwind 지시자 + base 레이어
-  components/
-    Header.jsx          lg 미만 전용 sticky 상단 네비게이션 + 모바일 메뉴
-    Sidebar.jsx         lg 이상 전용 왼쪽 고정 사이드바 (프로필 + 섹션 인덱스 + 링크)
-    SocialLinks.jsx     GitHub / LinkedIn / velog / Email 링크 (Home·Sidebar 공용)
-    Footer.jsx
-    Section.jsx         id·제목을 갖는 한 구획 (scroll-mt 포함)
-    Panel.jsx           흰색 카드 (제목 선택)
-    TimelineItem.jsx    제목+기간+소속 카드 (Education / Experience / Projects 공용)
-    styles.js           카드 그림자 상수
-  hooks/
-    useScrollSpy.js     현재 보이는 섹션 판별 → 네비 하이라이트
-    useHashScroll.js    #anchor 로 바로 진입했을 때의 초기 스크롤
-  sections/
-    Home.jsx  About.jsx  Experience.jsx  Publications.jsx  Projects.jsx
+  App.jsx                  포트폴리오 레이아웃 (모바일: Header, 데스크톱: Sidebar)
+  navigation.js            섹션 목록 = 네비게이션 목록
+  profile.jsx              직함·한 줄 소개 (Sidebar·Home 공용)
+  components/              Header, Sidebar, SocialLinks, Section, Panel, TimelineItem, Footer
+  hooks/                   useScrollSpy(현재 섹션 표시), useHashScroll(#앵커 진입 보정)
+  sections/                Home, About, Experience, Publications, Projects
+  pages/dgunet/
+    data.js                논문 정보·샘플·결과 표·수식·참고문헌
+    DgunetPage.jsx         섹션 배치
+    components/            비교 슬라이더, 최적화 식, 결과 표, 인용(Cite) 등
+public/dgunet/             프로젝트 페이지 이미지
 ```
 
-`Experience.jsx` 맨 위의 `EXPERIENCE` 배열이 비어 있으면 "Will be updated soon." 패널이 나온다.
-각 경력 카드에는 `Projects.jsx`의 `PROJECTS` 중 `company`가 같은 프로젝트의 제목이 링크로 붙고,
-누르면 해당 프로젝트 카드(`#project-<id>`)로 이동한다. 프로젝트 상세는 `PROJECTS`에만 쓴다.
+## 내용 수정
 
-### 섹션 추가하기
+| 바꿀 것 | 위치 |
+|---|---|
+| 직함·한 줄 소개 | `src/profile.jsx` |
+| 학력·기술 스택 | `src/sections/About.jsx` |
+| 경력 | `src/sections/Experience.jsx`의 `EXPERIENCE` |
+| 프로젝트 | `src/sections/Projects.jsx`의 `PROJECTS` |
+| 논문 목록 | `src/sections/Publications.jsx`의 `PUBLICATIONS` |
+| 프로젝트 페이지 문구·수치·수식·참고문헌 | `src/pages/dgunet/data.js` |
 
-1. `src/sections/`에 컴포넌트를 만들고 `<Section id="..." title="...">`로 감싼다.
-2. `src/navigation.js`의 `SECTIONS`에 `{ id, label }`을 추가한다.
-3. `src/App.jsx`의 `<main>` 안에 원하는 순서로 끼워 넣는다.
+- **프로젝트**: `title`은 Projects 카드에 쓰는 상세 이름, `short`는 Experience 링크에 쓰는 짧은 이름입니다. `company`가 경력의 `org`와 같으면 그 경력 카드에 프로젝트 링크가 자동으로 붙습니다.
+- **프로젝트 페이지**: 수치와 수식은 논문 최종 원고를 기준으로 합니다. 참고문헌은 IEEE 스타일이며, 번호는 `REFERENCES` 배열 순서를 따릅니다. 본문에서는 `{cite:key}`로 인용합니다.
 
-`id`만 맞으면 네비게이션 링크·활성 하이라이트·해시 딥링크가 자동으로 따라온다.
+## 섹션 추가
 
-## 네비게이션 동작
+1. `src/sections/`에 컴포넌트를 만들고 `<Section id="..." title="...">`로 감쌉니다.
+2. `src/navigation.js`의 `SECTIONS`에 `{ id, label }`을 추가합니다.
+3. `src/App.jsx`의 `<main>`에 원하는 순서로 넣습니다.
 
-- 화면 폭에 따라 네비게이션이 바뀐다 (Tailwind `lg` = 1024px 기준).
-  - lg 미만: `Header`(sticky 상단 바) + `Home`(프로필 히어로)
-  - lg 이상: `Sidebar`가 왼쪽에 고정되고 프로필·인덱스를 함께 보여주므로 `Header`와 `Home`은 숨긴다.
-    `Footer`를 본문 열 안에 둬야 sticky 사이드바가 페이지 끝에서 밀려 올라가지 않는다.
-- 네비 링크는 평범한 `<a href="#id">`. 이동은 CSS `scroll-behavior: smooth`가 처리하고,
-  `prefers-reduced-motion`이면 즉시 이동으로 떨어진다.
-- 각 섹션의 `scroll-mt-20`(80px)이 헤더(65px) 아래로 제목이 숨는 걸 막는다.
-- `useScrollSpy`가 헤더 아래 기준선을 지난 마지막 섹션을 활성으로 잡는다.
-  페이지 맨 아래에서는 마지막 섹션이 짧아도 활성이 되도록 따로 처리했다.
-- `#publications`처럼 해시를 달고 바로 들어오면 브라우저의 기본 앵커 점프는 실패한다
-  (해시 해석 시점에 React가 아직 섹션을 그리지 않았다). `useHashScroll`이 마운트 직후 한 번 보정한다.
+`id`가 맞으면 네비게이션 링크, 현재 섹션 표시, `#id` 바로가기가 함께 동작합니다.
 
-## 원본에서 바꾼 것
+## 레이아웃 메모
 
-복원 자체는 번들과 1:1로 맞췄고(Tailwind 클래스 집합 162개 중 렌더되는 것 전부 일치),
-아래만 의도적으로 다르다.
-
-| 항목 | 원본 | 지금 |
-|---|---|---|
-| 화면 전환 | HashRouter, 4개 view | 한 페이지 4개 섹션 + 앵커 |
-| Hero 높이 | `min-h-[calc(100vh-14rem)]` | `min-h-[calc(100vh-4rem)]` |
-| 카드/제목 컴포넌트 | 페이지마다 복사본 | `Section` / `Panel`로 통합 |
-| 제목 단계 | 페이지별 `h1` | 문서 하나이므로 `h1`(이름) > `h2`(섹션) > `h3`(카드) |
-
-### 걷어낸 Vite 보일러플레이트
-
-원본 `index.css`에는 Vite React 템플릿 기본 스타일이 그대로 남아 있었고, 그중 셋은
-요소 셀렉터라 Tailwind 유틸리티를 이기고 실제로 디자인을 깨고 있었다.
-
-- `a:hover { color: #747bff }` — **모든 링크**의 hover 색을 보라색으로 덮어썼다.
-  활성 네비게이션 항목(`text-white`)에 마우스를 올리면 글자가 보라색이 됐다.
-- `button { background-color: #1a1a1a }` — 모바일 햄버거 버튼이 회색/검정으로 칠해졌다.
-- `h1 { font-size: 3.2em }` — 유틸리티에 밀려 아무 효과 없는 죽은 규칙.
-
-`color-scheme`도 `light dark` → `light`로 고정했다. 밝은 페이지에 시스템 다크 모드의
-어두운 스크롤바가 섞여 나오던 문제.
-
-## 논문 프로젝트 페이지 (`/dgunet/`)
-
-IEEE Access 2026 논문(DGU-Net) 소개 페이지. Vite 멀티 페이지라 `dgunet/index.html`이 별도 엔트리로 빌드되고
-(`vite.config.js`의 `rollupOptions.input`), 메인 사이트 Publications의 **Project Page** 버튼이 여기로 연결된다.
-
-```
-dgunet/index.html                 엔트리 (→ src/pages/dgunet/main.jsx)
-src/pages/dgunet/
-  data.js                         논문 정보·샘플 목록·결과 표·수식(KaTeX) — 내용 수정은 여기서
-  DgunetPage.jsx                  섹션 배치
-  dgunet.css                      수식 항 하이라이트
-  components/
-    ComparisonViewer.jsx          첫 화면 비교 뷰어 (Input/Reference ↔ DGU-Net, 검출 박스 토글)
-    CompareSlider.jsx             드래그 비교 슬라이더
-    Objective.jsx                 핵심 최적화 식 — 항을 가리키면 강조·설명, 전체 식(식 19) 펼치기
-    DetectionTerm.jsx             검출 유도 항의 클래스별 마스크 F(J)_i / M_i
-    ResultsTable.jsx  DetectionGrid.jsx  Bibtex.jsx  Tex.jsx
-public/dgunet/                    이미지 (samples/<id>/{input,ours,ref}{,_det}.jpg, gradcam, term, overview.png)
-```
-
-수치·수식은 최종 LaTeX 원고 기준. 샘플은 UJED test 중 논문 Fig. 7 장면 2개이며, 박스 없는 버전(입력·DGU-Net 출력·
-레퍼런스)과 박스 있는 버전이 같은 장면·같은 버전인 것만 골랐다.
+- 1024px(Tailwind `lg`)를 기준으로 네비게이션이 바뀝니다. 그보다 좁으면 상단 Header와 Home(프로필)이, 넓으면 왼쪽 고정 Sidebar가 나옵니다.
+- `Footer`는 본문 열 안에 둡니다. 밖으로 빼면 페이지 끝에서 고정 사이드바가 위로 밀립니다.
+- 데스크톱에서는 About을 최소 한 화면 높이로 잡습니다. 그래서 첫 화면에 다음 섹션이 걸쳐 보이지 않습니다.
 
 ## 배포
 
-`main`에 push하면 `.github/workflows/deploy.yml`이 빌드해서 GitHub Pages로 배포한다
-(레포 Settings → Pages → Source: **GitHub Actions**). public 레포라 Actions 비용은 없다.
-진행 상황은 레포의 Actions 탭에서 본다. 수동 재배포는 Actions → Deploy to GitHub Pages → Run workflow.
+`main`에 push하면 GitHub Actions(`.github/workflows/deploy.yml`)가 빌드해서 GitHub Pages에 배포합니다. 보통 1분 안에 끝납니다.
 
-이전에는 빌드 결과물(`dist/`)을 `gh-pages` 브랜치에 직접 올려 서빙했다. 그 브랜치는 백업으로만 남아 있고
-더 이상 사이트와 연결돼 있지 않다.
+- 레포 설정: Settings → Pages → Source를 **GitHub Actions**로 둡니다.
+- 수동 재배포: Actions → *Deploy to GitHub Pages* → *Run workflow*
+- `gh-pages` 브랜치는 예전 배포본을 보관하는 백업이며, 지금 사이트와는 연결되어 있지 않습니다.
