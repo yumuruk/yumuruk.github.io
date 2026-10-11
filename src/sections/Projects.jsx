@@ -22,7 +22,8 @@ const TERMS = {
  * {
  *   id: 'ess',                          // 앵커 → #project-ess
  *   period: '2026.05 – Present',
- *   title: 'Web-based ESS Remote Monitoring',
+ *   title: 'Web-based ESS Remote Monitoring ...', // Projects 카드에 쓰는 상세 이름
+ *   short: 'ESS Remote Monitoring Platform',      // Experience 링크에 쓰는 짧은 이름 (4~5단어)
  *   company: 'CSI Vision',
  *   role: 'Web application development', // 선택
  *   bullets: ['...'],                   // 선택
@@ -34,7 +35,8 @@ export const PROJECTS = [
   {
     id: 'ess',
     period: '2026.05 – Present',
-    title: 'ESS Remote Monitoring Platform',
+    title: 'Web-based ESS Remote Monitoring and Operation Profile Analysis',
+    short: 'ESS Remote Monitoring Platform',
     company: 'CSI Vision',
     role: 'System design, web development, project management',
     bullets: [
@@ -47,7 +49,8 @@ export const PROJECTS = [
   {
     id: 'raman',
     period: '2026.03 – Present',
-    title: 'Raman Substance Identification Algorithm',
+    title: 'Raman Spectrum-based Substance Identification Algorithm',
+    short: 'Raman Substance Identification Algorithm',
     company: 'CSI Vision',
     role: 'Algorithm improvement',
     bullets: ['Replaced the preprocessing of the existing spectral data, improving algorithm performance'],
@@ -57,7 +60,8 @@ export const PROJECTS = [
   {
     id: 'xrf-libs',
     period: '2026.04 – 2026.09',
-    title: 'XRF & LIBS Analysis Platforms',
+    title: 'XRF Foreign Material Analysis and LIBS Spectral Analysis Platforms',
+    short: 'XRF & LIBS Analysis Platforms',
     company: 'CSI Vision',
     role: 'Platform development',
     bullets: [
@@ -72,7 +76,8 @@ export const PROJECTS = [
   {
     id: 'raman-plant-app',
     period: '2023.04 – 2024.02',
-    title: 'Raman Plant Analysis App',
+    title: 'Raman Spectroscopy-based Remote Plant Component Analysis App',
+    short: 'Raman Plant Analysis App',
     company: 'Answeray',
     role: 'Mobile application development',
     bullets: ['Developed a React Native application for a Raman spectroscopy-based remote plant component analysis system'],
