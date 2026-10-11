@@ -14,15 +14,17 @@ export const Badge = ({ children }) => (
  * children을 주면 회색 상세 박스가 아래에 붙는다.
  * Education / Experience가 같은 모양을 쓴다.
  */
-export default function TimelineItem({ badge, title, org, wide = false, children }) {
+export default function TimelineItem({ id, badge, title, org, wide = false, children }) {
   // wide(긴 기간 배지)는 모바일에서 배지를 위로 쌓아 본문 폭을 확보한다.
   const columns = wide
     ? 'grid-cols-1 gap-3 sm:grid-cols-[128px_1fr] sm:gap-5'
     : 'grid-cols-[80px_1fr] sm:grid-cols-[96px_1fr] gap-5'
 
   return (
+    // id가 있으면 앵커 대상: 헤더 아래로 숨지 않게 scroll-mt, 링크로 도착하면 테두리 강조.
     <div
-      className={`grid ${columns} p-6 my-4 bg-white rounded-md border border-emerald-100 ${CARD_SHADOW_HOVER}`}
+      id={id}
+      className={`grid ${columns} p-6 my-4 scroll-mt-20 bg-white rounded-md border border-emerald-100 target:ring-2 target:ring-emerald-400 ${CARD_SHADOW_HOVER}`}
     >
       <div className="pt-1">
         <Badge>{badge}</Badge>
