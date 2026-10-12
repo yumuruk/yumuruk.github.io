@@ -70,10 +70,22 @@ export const SAMPLES = [
   sample('GP010294_31723', 'Starfish & echinus on a sandy bed'),
 ]
 
-export const GRADCAM = [
-  { id: '2019v100458', input: '/dgunet/gradcam/2019v100458/input.jpg', ours: '/dgunet/gradcam/2019v100458/ours.jpg' },
-  { id: 'YN030001_04361', input: '/dgunet/gradcam/YN030001_04361/input.jpg', ours: '/dgunet/gradcam/YN030001_04361/ours.jpg' },
+// 검출기 Grad-CAM 비교 (논문 Fig. 8과 같은 구성·순서)
+const CAM_METHODS = [
+  { key: 'input', name: 'Input' },
+  { key: 'hlrp', name: 'HLRP', ref: 'hlrp' },
+  { key: 'accswd', name: 'ACC-SWD', ref: 'accswd' },
+  { key: 'cbla', name: 'CBLA', ref: 'cbla' },
+  { key: 'wfac', name: 'WFAC', ref: 'wfac' },
+  { key: 'tacl', name: 'TACL', ref: 'tacl' },
+  { key: 'cclnet', name: 'CCLNet', ref: 'cclnet' },
+  { key: 'cdfuie', name: 'CDF-UIE', ref: 'cdfuie' },
+  { key: 'dualclue', name: 'Dual-CLUE', ref: 'dualclue' },
+  { key: 'ours', name: 'DGU-Net (ours)', ours: true },
 ]
+const gradcam = (id) => ({ id, tiles: CAM_METHODS.map((m) => ({ ...m, src: `/dgunet/gradcam/${id}/${m.key}.jpg` })) })
+
+export const GRADCAM = [gradcam('2019v100458'), gradcam('YN030001_04361')]
 
 // 검출 유도 항 설명용 클래스별 마스크 (논문 Fig. 4)
 export const CLASSES = ['echinus', 'holothurian', 'scallop', 'starfish']

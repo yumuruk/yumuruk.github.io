@@ -167,28 +167,11 @@ const GradCam = () => {
   const g = GRADCAM[i]
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
-      <div className="grid grid-cols-2 gap-3 sm:gap-4">
-        {[
-          { src: g.input, label: 'Input' },
-          { src: g.ours, label: 'DGU-Net (ours)', ours: true },
-        ].map((x) => (
-          <figure key={x.label}>
-            <img
-              src={x.src}
-              alt={`Grad-CAM on ${x.label}`}
-              loading="lazy"
-              className={`aspect-[4/3] w-full rounded-lg object-cover ${x.ours ? 'ring-[3px] ring-emerald-500' : 'ring-1 ring-slate-200'}`}
-            />
-            <figcaption className={`mt-1.5 text-center text-xs ${x.ours ? 'font-semibold text-emerald-800' : 'text-slate-600'}`}>
-              {x.label}
-            </figcaption>
-          </figure>
-        ))}
-      </div>
-      <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
-        <p className="max-w-xl text-xs leading-relaxed text-slate-500">
-          Grad-CAM <Cite k="gradcam" /> from the last backbone layer of YOLOv9e <Cite k="yolov9" />, with its predicted boxes in green. On the raw input the
-          detector&apos;s attention falls on the background; on DGU-Net output it concentrates on the objects.
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <p className="max-w-2xl text-xs leading-relaxed text-slate-500">
+          Grad-CAM <Cite k="gradcam" /> from the last backbone layer of YOLOv9e <Cite k="yolov9" />, with its predicted
+          boxes in green. Compared with the other enhancement results, the detector&apos;s attention on DGU-Net output is
+          concentrated on the objects.
         </p>
         <div className="flex gap-2">
           {GRADCAM.map((x, k) => (
@@ -205,6 +188,28 @@ const GradCam = () => {
             </button>
           ))}
         </div>
+      </div>
+
+      <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-5">
+        {g.tiles.map((t) => (
+          <figure key={t.key}>
+            <img
+              src={t.src}
+              alt={`Grad-CAM on ${t.name}`}
+              loading="lazy"
+              className={`aspect-[4/3] w-full rounded-lg object-cover ${t.ours ? 'ring-[3px] ring-emerald-500' : 'ring-1 ring-slate-200'}`}
+            />
+            <figcaption className={`mt-1.5 text-center text-xs ${t.ours ? 'font-semibold text-emerald-800' : 'text-slate-600'}`}>
+              {t.name}
+              {t.ref && (
+                <>
+                  {' '}
+                  <Cite k={t.ref} />
+                </>
+              )}
+            </figcaption>
+          </figure>
+        ))}
       </div>
     </div>
   )
